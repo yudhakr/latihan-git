@@ -1,4 +1,5 @@
 # latihan-git
 
-mie ayam
-nasi goreng
+```mie ayam```
+```nasi goreng```
+
