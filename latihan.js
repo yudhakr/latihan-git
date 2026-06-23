@@ -57,4 +57,8 @@ console.log(nama.toUpperCase()); // Mengubah menjadi huruf besar
 console.log(nama.charAt(1)); // Mengambil karakter pertama
 
 console.log(`${word} ${word2}`); // Menggabungkan string
-console.log( word + " " + word2); // Menggabungkan string dengan operator +
+console.log( word + " " + word2);
+
+var word3 = "javascript";
+console.log(word.substring(0, 3));
+console.log(word2.toUpperCase()); // Mengambil substring dari indeks 0 hingga 3
