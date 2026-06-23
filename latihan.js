@@ -36,3 +36,25 @@ console.log("x < y: " + (x < y));
 console.log("x == z: " + (x == z));
 console.log("x === z: " + (x === z));
 console.log("x != z: " + (x != z));
+
+//Operator Kondisional
+console.log("Operator Kondisional");  
+console.log(true && true);   // true
+console.log(true || false);  // true
+
+var status = "Lulus";
+var Nilai = 50;
+
+console.log(status == "Lulus" && Nilai >= 75); // false
+console.log(status == "Lulus" || Nilai >= 75); // true
+
+var nama = " belajar web pemrograman";
+var word = "web";
+var word2 = "pemrograman";
+
+console.log(nama.length); // Menghitung jumlah karakter
+console.log(nama.toUpperCase()); // Mengubah menjadi huruf besar
+console.log(nama.charAt(1)); // Mengambil karakter pertama
+
+console.log(`${word} ${word2}`); // Menggabungkan string
+console.log( word + " " + word2); // Menggabungkan string dengan operator +
