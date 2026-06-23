@@ -26,3 +26,13 @@ console.log(" Hasil Pengurangan: " + pengurangan);
 console.log(" Hasil Perkalian: " + perkalian);
 console.log(" Hasil Pembagian: " + pembagian);
 console.log(" Hasil Modulus: " + modulus);
+
+//Operasi Perbandingan
+var x = 1;
+var z = 1;
+var y = 2;
+console.log("x > y: " + (x > y));
+console.log("x < y: " + (x < y));
+console.log("x == z: " + (x == z));
+console.log("x === z: " + (x === z));
+console.log("x != z: " + (x != z));
