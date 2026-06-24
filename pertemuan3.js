@@ -48,3 +48,19 @@ if ( minimarketStatus == "open" ) {
 } else {
     console.log("minimarket tutup, saya pulang lagi")
 }
+
+console.log("---- Conditional Statement contoh umur ----");
+
+var umur = 40;
+if(umur >= 17) {
+    console.log("sudah bisa membuat KTP");
+}  if(umur < 20) {
+        console.log("umur sama dengan 20");
+    } else if(umur < 30) {
+        console.log("umur lebih dari 20 -30");
+    } else if(umur < 40) {
+        console.log("umur lebih dari 30 - 40");
+    }else{
+    console.log("sudah berumur");
+}
+
