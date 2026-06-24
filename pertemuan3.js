@@ -80,15 +80,40 @@
 //         console.log("warna tidak diketahui");}
 // }
 
-console.log("---- Conditional Statement For loop ----");
-for(var angka = 0; angka < 10; angka++) {
-    console.log("angka ke - " + angka);
-}
+// console.log("---- Conditional Statement For loop ----");
+// for(var angka = 0; angka < 10; angka++) {
+//     console.log("angka ke - " + angka);
+// }
 
-var jumlah = 0;
-for( var deret = 5; deret <= 10; deret++) {
-    jumlah += deret;
-    console.log("jumlah saat ini - " + deret + " adalah " + jumlah);
-}
+// var jumlah = 0;
+// for( var deret = 5; deret <= 10; deret++) {
+//     jumlah += deret;
+//     console.log("jumlah saat ini - " + deret + " adalah " + jumlah);
+// }
 
-console.log('Jumlah terakhir adalah ' + jumlah);
+// console.log('Jumlah terakhir adalah ' + jumlah);
+
+// var flag2 =1;
+// while(flag2 < 10) {
+//     console.log("literasi ke - " + flag2);
+//     flag2++;
+// } while(flag2 > 0);
+
+
+// console.log("---- Conditional Statement Do While loop ----");
+// var flag =9;
+// do{
+//     console.log("literasi ke - " + ( 10 - flag));
+//     flag--;
+// } while(flag >0);
+
+ for(let i = 2; i <= 10; i += 2) {
+    console.log("literasi for ke : " + i);
+
+ }
+
+ let j = 2;
+ while(j <= 10) {
+    console.log("literasi while ke : " + j);
+    j += 2;
+ }
