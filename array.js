@@ -1,57 +1,71 @@
-let angka = [2, 5, 1, 3, 4];
+// let angka = [2, 5, 1, 3, 4];
 
 
 
-console.log(angka[0]); // 2
-console.log(angka[2]); // 1
+// console.log(angka[0]); // 2
+// console.log(angka[2]); // 1
 
-console.log("==== Array Method ====");
+// console.log("==== Array Method ====");
 
-// panjang array
-console.log(angka.length);
+// // panjang array
+// console.log(angka.length);
 
-// push() - tambah di akhir
-angka.push(6);
-console.log(angka);
+// // push() - tambah di akhir
+// angka.push(6);
+// console.log(angka);
 
-// pop() - hapus elemen terakhir
-angka.pop();
-console.log(angka);
+// // pop() - hapus elemen terakhir
+// angka.pop();
+// console.log(angka);
 
-// unshift() - tambah di awal
-angka.unshift(0);
-console.log(angka);
+// // unshift() - tambah di awal
+// angka.unshift(0);
+// console.log(angka);
 
-// shift() - hapus elemen pertama
-angka.shift();
-console.log(angka);
+// // shift() - hapus elemen pertama
+// angka.shift();
+// console.log(angka);
 
-// join() - array menjadi string
-let gabung = angka.join(", ");
-console.log(gabung);
+// // join() - array menjadi string
+// let gabung = angka.join(", ");
+// console.log(gabung);
 
-// split() - string menjadi array
-let pisah = gabung.split(", ");
-console.log(pisah);
+// // split() - string menjadi array
+// let pisah = gabung.split(", ");
+// console.log(pisah);
 
-// sort() - urutkan angka
-angka.sort((a, b) => a - b);
-console.log(angka);
+// // sort() - urutkan angka
+// angka.sort((a, b) => a - b);
+// console.log(angka);
 
-// slice() - ambil sebagian array
-console.log(angka.slice(1, 4));
+// // slice() - ambil sebagian array
+// console.log(angka.slice(1, 4));
 
-// splice() - tambah/hapus elemen
-angka.splice(2, 1, 10); // index 2, hapus 1 elemen, ganti dengan 10
-console.log(angka);
+// // splice() - tambah/hapus elemen
+// angka.splice(2, 1, 10); // index 2, hapus 1 elemen, ganti dengan 10
+// console.log(angka);
 
 var arr =['apel', 'jeruk', 'mangga', 'pisang'];
+var peserta = ["Andra", "Taufik", "Adit", "Debi"]
 //join
-console.log(arr.join(' buah'));
+// console.log(arr.join(' buah'));
 
-var nama =" Ayudha Kusuma Rahmadhani";
-// sebelum split
-console.log(nama);
-// setelah split
-// console.log(nama.split(' '));
-console.log(nama.split(" ").length)
+// var nama =" Ayudha Kusuma Rahmadhani";
+// // sebelum split
+// console.log(nama);
+// // setelah split
+// // console.log(nama.split(' '));
+// console.log(nama.split(" ").length)
+
+// // penggunaan short array
+// console.log(peserta.sort());
+
+// // penggeunaan reverse array
+// console.log(peserta.reverse());
+
+// pengguaan slice array
+console.log(peserta.slice(0,2));
+
+//penggunaan splice array
+peserta.splice(1, 1, "Rizki", "Asep");
+console.log(peserta);
