@@ -33,34 +33,62 @@
 // }
 
 
-var minimarketStatus = "open"
-var telur = "soldout"
-var buah = "soldout"
-if ( minimarketStatus == "open" ) {
-    console.log("saya akan membeli telur dan buah")
-    if(telur == "soldout" || buah == "soldout" ) {
-        console.log("belanjaan saya tidak lengkap")
-    } else if( telur == "soldout") {
-        console.log("telur habis")
-    } else if ( buah == "soldout" ) {
-        console.log("buah habis")
-    }
-} else {
-    console.log("minimarket tutup, saya pulang lagi")
+// var minimarketStatus = "open"
+// var telur = "soldout"
+// var buah = "soldout"
+// if ( minimarketStatus == "open" ) {
+//     console.log("saya akan membeli telur dan buah")
+//     if(telur == "soldout" || buah == "soldout" ) {
+//         console.log("belanjaan saya tidak lengkap")
+//     } else if( telur == "soldout") {
+//         console.log("telur habis")
+//     } else if ( buah == "soldout" ) {
+//         console.log("buah habis")
+//     }
+// } else {
+//     console.log("minimarket tutup, saya pulang lagi")
+// }
+
+// console.log("---- Conditional Statement contoh umur ----");
+
+// var umur = 25;
+// if(umur >= 17) {
+//     console.log("sudah bisa membuat KTP");
+// }  if(umur > 20) {
+//         console.log("umur sama dengan 20");
+//     } else if(umur > 30) {
+//         console.log("umur lebih dari 20 -30");
+//     } else if(umur > 40) {
+//         console.log("umur lebih dari 30 - 40");
+//     }else{
+//     console.log("sudah berumur");
+// }
+
+// console.log("---- Conditional Statement switch case ----");
+//  var warna = "merah";
+// switch(warna) {
+//     case "kuning": {
+//         console.log("warna kuning");
+//         break;}
+//     case "merah": {
+//         console.log("warna merah");
+//         break; }
+//     case "hijau":{
+//         console.log("warna hijau");
+//         break;}
+//     default:{
+//         console.log("warna tidak diketahui");}
+// }
+
+console.log("---- Conditional Statement For loop ----");
+for(var angka = 0; angka < 10; angka++) {
+    console.log("angka ke - " + angka);
 }
 
-console.log("---- Conditional Statement contoh umur ----");
-
-var umur = 40;
-if(umur >= 17) {
-    console.log("sudah bisa membuat KTP");
-}  if(umur < 20) {
-        console.log("umur sama dengan 20");
-    } else if(umur < 30) {
-        console.log("umur lebih dari 20 -30");
-    } else if(umur < 40) {
-        console.log("umur lebih dari 30 - 40");
-    }else{
-    console.log("sudah berumur");
+var jumlah = 0;
+for( var deret = 5; deret <= 10; deret++) {
+    jumlah += deret;
+    console.log("jumlah saat ini - " + deret + " adalah " + jumlah);
 }
 
+console.log('Jumlah terakhir adalah ' + jumlah);
