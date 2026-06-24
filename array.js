@@ -48,3 +48,10 @@ console.log(angka);
 var arr =['apel', 'jeruk', 'mangga', 'pisang'];
 //join
 console.log(arr.join(' buah'));
+
+var nama =" Ayudha Kusuma Rahmadhani";
+// sebelum split
+console.log(nama);
+// setelah split
+// console.log(nama.split(' '));
+console.log(nama.split(" ").length)
