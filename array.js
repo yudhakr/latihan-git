@@ -69,3 +69,5 @@ console.log(peserta.slice(0,2));
 //penggunaan splice array
 peserta.splice(1, 1, "Rizki", "Asep");
 console.log(peserta);
+
+console
