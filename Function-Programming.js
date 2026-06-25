@@ -20,24 +20,23 @@ function HitungLingkaran(radius) {
   function luas(r) { return pi * r * r; }
   function keliling(r) { return 2 * pi * r; }
   
-  // Fungsi untuk persegi (sisi = r)
-  
-
   console.log("Luas Lingkaran:", luas(radius));
   console.log("Keliling Lingkaran:", keliling(radius));
- 
 }
-function Persegi(sisi)
-{
+
+// Nama fungsi diubah dari Persegi menjadi HitungPersegi
+function HitungPersegi(sisi) {
+  // Fungsi untuk persegi
   function luaspersegi(s) { return s * s; } 
   function kelilingpersegi(s) { return 4 * s; }
 
   console.log("Luas Persegi :", luaspersegi(sisi));
   console.log("Keliling Persegi :", kelilingpersegi(sisi));
-  }
+}
 
 HitungLingkaran(7);
-HitungPersegi(5);
+HitungPersegi(5); // Sekarang pemanggilan ini akan berhasil
+
 
 // console.log ("=== Currying Function ===")
 
