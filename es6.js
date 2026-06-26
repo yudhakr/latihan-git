@@ -57,11 +57,27 @@
 // }
 // console.log(person)
 
-// let numb = [1,2,8,9,6]
-let [num1, , , , lastnum] = [4,2,8,9,6]
+// // let numb = [1,2,8,9,6]
+// let [num1, , , , lastnum] = [4,2,8,9,6]
 
-let football =["messi","ronaldo","mebbe","halland","nymar"]
-let [ foot1,foot2, , ,restfoot] = football
+// let football =["messi","ronaldo","mebbe","halland","nymar"]
+// let [foot1,...restfoot] = football
 
-console.log(foot1)
-console.log(foot2)
+// console.log(foot1)
+// console.log(restfoot[3])
+
+//SPREAD OPERATOR
+
+// let buah = ["jeruk","apple","jeruk","leci"]
+// buah.unshift("mangga","jeruk")
+// buah.push("durian")
+// console.log(buah)
+
+let botol = {
+    merk : "Aqua",
+    ukuran : "600ml",
+    harga : 5000
+}
+
+botol = {...botol, warna: "biru", kemasan: "plastik", bentuk: "bulat"}
+console.log(botol)
