@@ -103,7 +103,7 @@ async function cekPasien() {
   }
 }
 
-cekPasien()
+cekPasien(4)
 
 
 
