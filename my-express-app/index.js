@@ -2,56 +2,43 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-let mahasiswa = ["Budi", "Siti", "Joko", "Rina", "Sari", "Dedi"];
-let obmahasiswa = [
-  { nim: 11244, nama: "Yuliati" },
-  { nim: 11245, nama: "Desta Gredy" },
-  { nim: 11246, nama: "Andra Ramadani" },
-  { nim: 11247, nama: "Dimas Wijaya" },
-  { nim: 11248, nama: "Andra Wijaya" },
-  { nim: 11249, nama: "Siti Maimunah" }
-];
+// app.get('/', (req, res) => {
+//   res.send('Hello World!');
+// });
 
-// const getmahasiswa = (req, res) => {
-//   let result = "";
-//   mahasiswa.forEach((item, index) => {
-//     result += `<h2>${index + 1}. ${item}</h2>`;
-//   });
-//   res.send(result);
-// };
+let movies = [
+{id: 1, title: "Spider-Man", year: 2002},
+{id: 2, title: "John Wick", year: 2014},
+{id: 3, title: "The Avengers", year: 2012},
+{id: 4, title: "Logan", year: 2017},
+]
 
-const getobmahasiswa = (req, res) => {
-  let { nama } = req.query;
-  let result = "";
+const getMovies = (req, res) => {
+    let { title } = req.query
 
-  conole.log(nama)
-  if (nama == undefined){
-    result = ""
-  }
-  
-  obmahasiswa.forEach((item, index) => {
-    if (!nama || item.nama.toLowerCase().includes(nama.toLowerCase())) {
-      result += `<h3>${index + 1}. ${item.nama} NIM : ${item.nim}.</h3>`;
-    }
-  });
-  
-  // PERBAIKAN: Jika result kosong, otomatis kirimkan teks Error
-  res.send(result || "<h3>Error: Data mahasiswa tidak ditemukan.</h3>");
-};
+    console.log(title)
 
-// const getobmahasiswaid = (req, res) => {
-//   let { nim } = req.params;
-//   let hasil = obmahasiswa.find((item) => item.nim === Number(nim));
-//   if (!hasil) {
-//     res.status(404).send(`Mahasiswa dengan NIM ${nim} tidak ditemukan`);
-//     return;
-//   }
-//   res.send(`Nama Mahasiswa ${hasil.nama} NIM : ${hasil.nim}`);
-// };
+    let result = "";
+    movies.forEach((item, index) => {
+        result += `<h3>${index + 1}. ${item.title} (${item.year})</h3>`;
+    });
+    res.send(result);
+}
 
-// app.get('/mahasiswa', getmahasiswa);
-app.get('/obmahasiswa', getobmahasiswa);
-// app.get('/obmahasiswa/:nim', getobmahasiswaid);
+// Method untuk mendapatkan file berdasarkan id
+const getMovieById = (req, res) => {
+ let { id } = req.params;
+ let result = movies.find((item) => item.id === Number(id));
+ if (!result) {
+    res.status(404).send(`Movie dengan ID ${id} tidak ditemukan`);
+    return;
+ }
+
+ res.send(`<h3>${result.title} (${result.year})</h3>`);
+}
+
+app.get('/movies', getMovies);
+app.get('/movies/:id', getMovieById);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
