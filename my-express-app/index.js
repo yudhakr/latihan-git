@@ -7,106 +7,101 @@ app.get('/', (req, res) => {
 });
 
 let movies = [
-{id: 1, title: "Spider-Man", year: 2002},
-{id: 2, title: "John Wick", year: 2014},
-{id: 3, title: "The Avengers", year: 2012},
-{id: 4, title: "Logan", year: 2017},
-{id: 5, title: "Para Pencari Tuhan", year: 2026}
-]
+  { id: 1, title: "Spider-Man", year: 2002 },
+  { id: 2, title: "John Wick", year: 2014 },
+  { id: 3, title: "The Avengers", year: 2012 },
+  { id: 4, title: "Logan", year: 2017 },
+  { id: 5, title: "Para Kiai", year: 2026 },
+  { id: 6, title: "Para Pencari Tuhan", year: 2023 },
+  { id: 7, title: "Dragon Ball", year: 2024 },
+  { id: 8, title: "Lupin", year: 2025 }
+];
 
-// const getMovies = (req, res) => {
-//     let { title } = req.query
-
-//     console.log(title)
-
-//     let result = "";
-//     movies.forEach((item, index) => {
-//         result += `<h3>${index + 1}. ${item.title} (${item.year})</h3>`;
-//     });
-//     res.send(result);
-// }
-
-// Method untuk mendapatkan file berdasarkan id
-const getMovieById = (req, res) => {
- let { id } = req.params
- let result = movies.find((item) => item.id === Number(id));
- if (!result) {
-    res.status(404).send(`Movie dengan ID ${id} tidak ditemukan`);
-    return;
- }
-
- res.send(`<h3>${result.title} (${result.year})</h3>`);
-}
-
-
-// PERCOBAAN API
-const getMoviesApi = (req, res) => {
-    let { title } = req.query
-
-    console.log(title)
-
-    if (title === undefined){ 
-        title = ""
-    }
-    let result = movies.filter((item) =>{
-        return item.title.toLowerCase().includes(title.toLowerCase())
-
-    })
-    res.send(result)
-}
-
-// Method API
-const getMovieByIdApi = (req, res) => {
- let { id } = req.params
- let result = movies.find((item) => item.id === Number(id));
- if (!result) {
-    res.status(404).send(`Movie dengan ID ${id} tidak ditemukan`);
-    return;
- }
-
- res.send(`<h3>${result.title} (${result.year})</h3>`);
-}
-
+// ============ MIDDLEWARE ============
 
 const loggerMiddleware = (req, res, next) => {
-    console.log(`Method: ${req.method}`)
-    console.log(`URL: ${req.url}`)
-    next()
+  console.log(`Method: ${req.method}`);
+  console.log(`URL: ${req.url}`);
+  next();
+};
 
-}
 const tokenMiddleware = (req, res, next) => {
-  let { token } = req.query
+  let { token } = req.query;
 
   if (token === "1200") {
-    next()
+    next();
   } else {
-    res.status(401).json({
-      message: "Token tidak valid"
-    })
+    res.status(401).json({ message: "Token tidak valid" });
   }
-}
+};
+
+const yearMiddleware = (req, res, next) => {
+  let { year } = req.query;
+  if (year !== undefined) {
+    if (isNaN(Number(year))) {
+      return res.status(400).json({ message: "Year harus berupa angka" });
+    }
+    console.log(`Filter by year: ${year}`);
+  }
+  next();
+};
+
+const timeMiddleware = (req, res, next) => {
+  console.log(`Time: ${new Date().toLocaleString()}`);
+  next();
+};
+
 const checkMovieIdMiddleware = (req, res, next) => {
-  let { id } = req.params
-  let result = movies.find(item => item.id === Number(id))
+  let { id } = req.params;
+  let result = movies.find(item => item.id === Number(id));
 
   if (result) {
-    next()
+    next();
   } else {
-    res.status(404).json({ message: "Movie tidak ditemukan" })
+    res.status(404).json({ message: "Movie tidak ditemukan" });
   }
-}
+};
 
+// ============ HANDLERS ============
 
+const getMoviesApi = (req, res) => {
+  let { title, year } = req.query;
+  let result = movies.filter((item) => {
+    let match = true;
+    if (title) {
+      match = match && item.title.toLowerCase().includes(title.toLowerCase());
+    }
+    if (year) {
+      match = match && item.year === Number(year);
+    }
+    return match;
+  });
+  res.json(result);
+};
 
+const getMovieByIdApi = (req, res) => {
+  let { id } = req.params;
+  let result = movies.find((item) => item.id === Number(id));
+  res.json(result);
+};
 
-app.get('/api/movies', loggerMiddleware, tokenMiddleware, getMoviesApi)
+const getMovieById = (req, res) => {
+  let { id } = req.params;
+  let result = movies.find((item) => item.id === Number(id));
+  if (!result) {
+    res.status(404).send(`Movie dengan ID ${id} tidak ditemukan`);
+    return;
+  }
+  res.send(`<h3>${result.title} (${result.year})</h3>`);
+};
 
-// app.get('/movies', getMovies);
+// ============ ROUTES ============
+
+app.get('/api/movies', loggerMiddleware, tokenMiddleware, yearMiddleware, getMoviesApi);
+
+app.get('/api/movies/:id', loggerMiddleware, timeMiddleware, checkMovieIdMiddleware, getMovieByIdApi);
+
 app.get('/movies/:id', getMovieById);
-
-
-// app.get('/api/movies', getMoviesApi);
-app.get('/api/movies/:id',loggerMiddleware, checkMovieIdMiddleware, getMovieByIdApi);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
