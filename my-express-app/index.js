@@ -20,9 +20,9 @@ let movies = [
 // ============ MIDDLEWARE ============
 
 const loggerMiddleware = (req, res, next) => {
-  console.log(`Method: ${req.method}`);
-  console.log(`URL: ${req.url}`);
-  next();
+  console.log("Ada request masuk")
+  next()
+
 };
 
 const tokenMiddleware = (req, res, next) => {
@@ -47,7 +47,8 @@ const yearMiddleware = (req, res, next) => {
 };
 
 const timeMiddleware = (req, res, next) => {
-  console.log(`Time: ${new Date().toLocaleString()}`);
+  req.requestTime = new Date().toLocaleString();
+  console.log(`[${req.requestTime}] ${req.method} ${req.url}`);
   next();
 };
 
@@ -97,9 +98,11 @@ const getMovieById = (req, res) => {
 
 // ============ ROUTES ============
 
+app.use(timeMiddleware);
+
 app.get('/api/movies', loggerMiddleware, tokenMiddleware, yearMiddleware, getMoviesApi);
 
-app.get('/api/movies/:id', loggerMiddleware, timeMiddleware, checkMovieIdMiddleware, getMovieByIdApi);
+app.get('/api/movies/:id', loggerMiddleware, checkMovieIdMiddleware, getMovieByIdApi);
 
 app.get('/movies/:id', getMovieById);
 
