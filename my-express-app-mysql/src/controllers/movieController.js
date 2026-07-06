@@ -1,101 +1,80 @@
-let movies = [
-  { id: 1, title: "Spider-Man", year: 2002 },
-  { id: 2, title: "John Wick", year: 2014 },
-  { id: 3, title: "The Avengers", year: 2012 },
-  { id: 4, title: "Logan", year: 2017 },
-  { id: 5, title: "Para Kiai", year: 2026 },
-  { id: 6, title: "Para Pencari Tuhan", year: 2023 },
-  { id: 7, title: "Dragon Ball", year: 2024 },
-  { id: 8, title: "Lupin", year: 2025 }
-];
+const connectionPool = require("../config/db.js");
 
-// ============ MIDDLEWARE ============
+const readmovie = (req, res) => {
+  let query = "SELECT * FROM tb_movie";
 
-const loggerMiddleware = (req, res, next) => {
-  console.log("Ada request masuk")
-  next()
-
-};
-
-const tokenMiddleware = (req, res, next) => {
-  let { token } = req.query;
-
-  if (token === "1200") {
-    next();
-  } else {
-    res.status(401).json({ message: "Token tidak valid" });
-  }
-};
-
-const yearMiddleware = (req, res, next) => {
-  let { year } = req.query;
-  if (year !== undefined) {
-    if (isNaN(Number(year))) {
-      return res.status(400).json({ message: "Year harus berupa angka" });
+  connectionPool.query(query, (err, result) => {
+    if(err) {
+      console.log(err)
+      return res.status(500).json({ message: "Database error", error: err })
     }
-    console.log(`Filter by year: ${year}`);
-  }
-  next();
-};
+    res.json(result)
+  })
+}
 
-const timeMiddleware = (req, res, next) => {
-  req.requestTime = new Date().toLocaleString();
-  console.log(`[${req.requestTime}] ${req.method} ${req.url}`);
-  next();
-};
+const readmovieid = (req, res) => {
+  let {id}  = req.params;
+  let querytext = `SELECT * FROM tb_movie WHERE id_tb_movie = ${id}`
 
-const checkMovieIdMiddleware = (req, res, next) => {
-  let { id } = req.params;
-  let result = movies.find(item => item.id === Number(id));
-
-  if (result) {
-    next();
-  } else {
-    res.status(404).json({ message: "Movie tidak ditemukan" });
-  }
-};
-
-// ============ HANDLERS ============
-
-const getMoviesApi = (req, res) => {
-  let { title, year } = req.query;
-  let result = movies.filter((item) => {
-    let match = true;
-    if (title) {
-      match = match && item.title.toLowerCase().includes(title.toLowerCase());
+  connectionPool.query(querytext, [id], (err, result) => {
+    if(err) {
+      console.log(err)
+      return res.status(500).json({ message: "Database error", error: err })
     }
-    if (year) {
-      match = match && item.year === Number(year);
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Film tidak ditemukan" })
     }
-    return match;
+    res.json(result[0])
+})
+}
+
+const createmovie = (req, res) => {
+  let { title, year } = req.body;
+  let querytext = `INSERT INTO tb_movie (title_tb_movie, year_tb_movie) VALUES ("${title}", ${year})`
+
+  connectionPool.query(querytext, [title, year], (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Database error", error: err });
+    }
+    res.json({ message: "Data berhasil ditambahkan" });
   });
-  res.json(result);
 };
+  
+const updatemovie = (req,res) => {
+  let {title,year} = req.body
+  let {id} = req.params
+  let querytext = "UPDATE tb_movie SET title_tb_movie = ?, year_tb_movie = ? WHERE id_tb_movie = ?"
 
-const getMovieByIdApi = (req, res) => {
-  let { id } = req.params;
-  let result = movies.find((item) => item.id === Number(id));
-  res.json(result);
-};
+  connectionPool.query(querytext, [title, year, id], (err,data) =>{
+    if(err){
+      console.log(err)
+      return res.status(500).json({ message: "Database error", error: err })
+    }
+    res.json({message: "Data berhasil diupdate"})
+  
+  })
+}
 
-const getMovieById = (req, res) => {
-  let { id } = req.params;
-  let result = movies.find((item) => item.id === Number(id));
-  if (!result) {
-    res.status(404).send(`Movie dengan ID ${id} tidak ditemukan`);
-    return;
-  }
-  res.send(`<h3>${result.title} (${result.year})</h3>`);
-};
+const deletemovie = (req,res) => {
+  let {id} = req.params
+  let querytext = "DELETE FROM tb_movie WHERE id_tb_movie = ?"
+
+  connectionPool.query(querytext, [id], (err,data) =>{
+    if(err){
+      console.log(err)
+      return res.status(500).json({ message: "Database error", error: err })
+    }
+    res.json({message: "Data berhasil dihapus"})
+  
+  })
+}
 
 
 module.exports = {
-  loggerMiddleware,
-  tokenMiddleware,
-  yearMiddleware,
-  timeMiddleware,
-  checkMovieIdMiddleware,
-  getMoviesApi,
-  getMovieByIdApi,
-  getMovieById
+  readmovie,
+  readmovieid,
+  createmovie,
+  updatemovie,
+  deletemovie
 };

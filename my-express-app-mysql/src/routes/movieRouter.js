@@ -1,20 +1,12 @@
 const express = require("express")
 const movieRouter = express.Router()
 
+const { readmovie, readmovieid, createmovie, updatemovie, deletemovie } = require("../controllers/movieController.js")
 
+movieRouter.get('/film', readmovie);
+movieRouter.get('/film/:id', readmovieid);
+movieRouter.post('/film', createmovie);
+movieRouter.put('/film/:id', updatemovie);
+movieRouter.delete('/film/:id', deletemovie);
 
-const {
-    loggerMiddleware,
-  tokenMiddleware,
-  yearMiddleware,
-  timeMiddleware,
-  checkMovieIdMiddleware,
-  getMoviesApi,
-  getMovieByIdApi,
-  getMovieById
-} = require("../controllers/movieController.js")
-
-movieRouter.get('/movies',getMoviesApi);
-movieRouter.get('/movies/:id',getMovieByIdApi);
-
-module.exports = {movieRouter}
+module.exports = movieRouter
