@@ -24,7 +24,7 @@ const getobmahasiswa = (req, res) => {
   let { nama } = req.query;
   let result = "";
 
-  conole.log(nama)
+  console.log(nama)
   if (nama == undefined){
     result = ""
   }

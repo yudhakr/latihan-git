@@ -14,7 +14,7 @@ const readmovie = (req, res) => {
 
 const readmovieid = (req, res) => {
   let {id}  = req.params;
-  let querytext = `SELECT * FROM tb_movie WHERE id_tb_movie = ${id}`
+  let querytext = `SELECT * FROM tb_movie WHERE id_tb_movie = ?`
 
   connectionPool.query(querytext, [id], (err, result) => {
     if(err) {
@@ -30,7 +30,7 @@ const readmovieid = (req, res) => {
 
 const createmovie = (req, res) => {
   let { title, year } = req.body;
-  let querytext = `INSERT INTO tb_movie (title_tb_movie, year_tb_movie) VALUES ("${title}", ${year})`
+  let querytext = `INSERT INTO tb_movie (title_tb_movie, year_tb_movie) VALUES (?, ?)`
 
   connectionPool.query(querytext, [title, year], (err, data) => {
     if (err) {
@@ -44,7 +44,7 @@ const createmovie = (req, res) => {
 const updatemovie = (req,res) => {
   let {title,year} = req.body
   let {id} = req.params
-  let querytext = "UPDATE tb_movie SET title_tb_movie = ?, year_tb_movie = ? WHERE id_tb_movie = ?"
+  let querytext = `UPDATE tb_movie SET title_tb_movie = ?, year_tb_movie = ? WHERE id_tb_movie = ?`
 
   connectionPool.query(querytext, [title, year, id], (err,data) =>{
     if(err){
@@ -58,7 +58,7 @@ const updatemovie = (req,res) => {
 
 const deletemovie = (req,res) => {
   let {id} = req.params
-  let querytext = "DELETE FROM tb_movie WHERE id_tb_movie = ?"
+  let querytext = `DELETE FROM tb_movie WHERE id_tb_movie = ?`
 
   connectionPool.query(querytext, [id], (err,data) =>{
     if(err){

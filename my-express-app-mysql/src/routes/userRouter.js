@@ -1,8 +1,10 @@
 const express = require("express")
-const movieRouter = express.Router()
+const userRouter = express.Router()
 
-userRouter.get('/login',login)
-userRouter.get('/register',register)
+const { login, register } = require("../controllers/userController.js")
+
+userRouter.get('/login', login)
+userRouter.get('/register', register)
 
 
 module.exports = userRouter
