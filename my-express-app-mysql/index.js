@@ -17,7 +17,7 @@ const userRouter  = require('./src/routes/userRouter');
 app.use(express.json())
 app.use('/api', movieRouter);
 app.use('/', userRouter);
-
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
