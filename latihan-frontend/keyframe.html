@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keyframe</title>
+  </head>
+  <body>
+    <style>
+      .animasi {
+        width: 150px;
+        height: 150px;
+        background-color: aquamarine;
+        animation-name: example;
+        animation-duration: 4s;
+      }
+      
+      @keyframes example {
+        /* from {
+          background-color: blue;
+        }
+        to {
+          background-color: bisque;
+        } */
+        0% {
+            background-color: aqua;
+        }
+        20% {
+            background-color: rgb(2, 63, 63);
+        }
+        50% {
+            background-color: rgb(2, 59, 59);
+        }
+        100% {
+            background-color: rgb(11, 7, 77);
+        }
+      }
+     
+
+    </style>
+    
+    <div class="animasi"></div>
+  </body>
+</html>

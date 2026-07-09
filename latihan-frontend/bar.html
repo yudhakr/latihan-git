@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animated Progress Bar</title>
+  </head>
+  <body>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #1e293b;
+        font-family: system-ui, sans-serif;
+      }
+
+      .progress {
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .bar {
+        width: 100%;
+        height: 24px;
+        background: #334155;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #f97316, #ec4899, #8b5cf6);
+        border-radius: 12px;
+        animation: progress 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      @keyframes progress {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      .label {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #f1f5f9;
+        text-align: center;
+      }
+    </style>
+
+    <div class="progress">
+      <div class="bar">
+        <div class="fill" id="fill"></div>
+      </div>
+      <span class="label" id="counter">0%</span>
+    </div>
+
+    <script>
+      const fill = document.getElementById("fill");
+      const counter = document.getElementById("counter");
+
+      let start;
+
+      function animate(now) {
+        if (!start) start = now;
+        const elapsed = now - start;
+        const duration = 2500;
+        const progress = Math.min(elapsed / duration, 1);
+        const pct = Math.round(progress * 100);
+
+        fill.style.width = pct + "%";
+        counter.textContent = pct + "%";
+
+        if (progress < 1) requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    </script>
+  </body>
+</html>
