@@ -1,0 +1,34 @@
+h1 {
+    color: rgb(75, 208, 218);
+}
+
+div {
+    border: 3px solid transparent; /* Tambahkan satuan px dan style */
+    border-radius: 5%;
+}
+
+.container {
+    margin-top: 20px; /* Tambahkan satuan px */
+    border: 2px solid black;
+    padding: 10px;
+}
+
+.card {
+    color: blue;
+    border: 2px solid blue;
+    border-radius: 8px;
+    display: grid;
+    
+    /* --- TAMBAHAN UNTUK MENAMPILKAN GRID --- */
+    grid-template-columns: 1fr 1fr 1fr 1 fr; /* Membagi grid menjadi 2 kolom sama besar */
+     row-gap: 10px; /* Memberikan jarak antar elemen di dalam grid */
+    padding: 15px;
+}
+
+/* Style tambahan agar item di dalam grid terlihat bentuknya */
+.card .item {
+    background-color: rgb(220, 235, 255);
+    border: 1px solid rgb(75, 137, 218);
+    padding: 20px;
+    text-align: center;
+}
