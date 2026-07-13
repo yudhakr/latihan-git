@@ -38,18 +38,18 @@ const CrudAxios = () => {
     }
   };
 
-  const handleEdit = (film) => {
-    setTitle(film.title_tb_movie);
-    setYear(film.year_tb_movie);
-    setEditId(film.id_tb_movie);
-  };
+//   const handleEdit = (film) => {
+//     setTitle(film.title_tb_movie);
+//     setYear(film.year_tb_movie);
+//     setEditId(film.id_tb_movie);
+//   };
 
-  const handleDelete = (id) => {
-    if (!confirm("Yakin ingin menghapus data ini?")) return;
-    axios.delete(`${API_URL}/${id}`).then(() => {
-      fetchFilms();
-    });
-  };
+//   const handleDelete = (id) => {
+//     if (!confirm("Yakin ingin menghapus data ini?")) return;
+//     axios.delete(`${API_URL}/${id}`).then(() => {
+//       fetchFilms();
+//     });
+//   };
 
   const resetForm = () => {
     setTitle("");
