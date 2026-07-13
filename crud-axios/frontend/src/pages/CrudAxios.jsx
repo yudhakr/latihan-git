@@ -1,71 +1,53 @@
-// import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const CrudAxios = () => {
-  // const [count, setCount] = useState(0)
+  const [film, setData] = useState([])
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/film").then((res) => {
+      console.log(res.data)
+      setData(res.data)
+    })
+  }, [])
 
   return (
     <>
-      <h1> CRUD AXIOS</h1>
+      <h1>CRUD AXIOS</h1>
 
-      <table>
-        <tr>
-          <th>Company</th>
-          <th>Contact</th>
-          <th>Country</th>
-        </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Germany</td>
-        </tr>
-        <tr>
-          <td>Berglunds snabbköp</td>
-          <td>Christina Berglund</td>
-          <td>Sweden</td>
-        </tr>
-        <tr>
-          <td>Centro comercial Moctezuma</td>
-          <td>Francisco Chang</td>
-          <td>Mexico</td>
-        </tr>
-        <tr>
-          <td>Ernst Handel</td>
-          <td>Roland Mendel</td>
-          <td>Austria</td>
-        </tr>
-        <tr>
-          <td>Island Trading</td>
-          <td>Helen Bennett</td>
-          <td>UK</td>
-        </tr>
-        <tr>
-          <td>Königlich Essen</td>
-          <td>Philip Cramer</td>
-          <td>Germany</td>
-        </tr>
-        <tr>
-          <td>Laughing Bacchus Winecellars</td>
-          <td>Yoshi Tannamuri</td>
-          <td>Canada</td>
-        </tr>
-        <tr>
-          <td>Magazzini Alimentari Riuniti</td>
-          <td>Giovanni Rovelli</td>
-          <td>Italy</td>
-        </tr>
-        <tr>
-          <td>North/South</td>
-          <td>Simon Crowther</td>
-          <td>UK</td>
-        </tr>
-        <tr>
-          <td>Paris spécialités</td>
-          <td>Marie Bertrand</td>
-          <td>France</td>
-        </tr>
-      </table>
+      <div className="table-movie">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Title</th>
+              <th>Year</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {film.length > 0 ? (
+              film.map((item, index) => (
+                <tr key={item.id || index}>
+                  <td>{index + 1}</td>
+                  <td>{item.title}</td>
+                  <td>{item.year}</td>
+                  <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4}>Tidak ada data</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </>
-  );
-};
+  )
+}
 
-export default CrudAxios;
+export default CrudAxios
