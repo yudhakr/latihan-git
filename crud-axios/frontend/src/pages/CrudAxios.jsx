@@ -30,8 +30,8 @@ const CrudAxios = () => {
               film.map((item, index) => (
                 <tr key={item.id || index}>
                   <td>{index + 1}</td>
-                  <td>{item.title}</td>
-                  <td>{item.year}</td>
+                  <td>{item.title_tb_movie}</td>
+                  <td>{item.year_tb_movie}</td> 
                   <td>
                     {/* <button>Edit</button>
                     <button>Delete</button> */}
