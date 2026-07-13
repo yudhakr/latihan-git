@@ -33,8 +33,8 @@ const CrudAxios = () => {
                   <td>{item.title}</td>
                   <td>{item.year}</td>
                   <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    {/* <button>Edit</button>
+                    <button>Delete</button> */}
                   </td>
                 </tr>
               ))
