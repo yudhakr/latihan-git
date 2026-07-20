@@ -38,18 +38,18 @@ const CrudAxios = () => {
     }
   };
 
-//   const handleEdit = (film) => {
-//     setTitle(film.title_tb_movie);
-//     setYear(film.year_tb_movie);
-//     setEditId(film.id_tb_movie);
-//   };
+  const handleEdit = (film) => {
+    setTitle(film.title_tb_movie);
+    setYear(film.year_tb_movie);
+    setEditId(film.id_tb_movie);
+  };
 
-//   const handleDelete = (id) => {
-//     if (!confirm("Yakin ingin menghapus data ini?")) return;
-//     axios.delete(`${API_URL}/${id}`).then(() => {
-//       fetchFilms();
-//     });
-//   };
+  const handleDelete = (id) => {
+    if (!confirm("Yakin ingin menghapus data ini?")) return;
+    axios.delete(`${API_URL}/${id}`).then(() => {
+      fetchFilms();
+    });
+  };
 
   const resetForm = () => {
     setTitle("");
@@ -115,7 +115,7 @@ const CrudAxios = () => {
                   <td>{item.title_tb_movie}</td>
                   <td>{item.year_tb_movie}</td>
                   <td>
-                    {/* <button
+                    <button
                       className="btn-edit"
                       onClick={() => handleEdit(item)}
                     >
@@ -126,7 +126,7 @@ const CrudAxios = () => {
                       onClick={() => handleDelete(item.id_tb_movie)}
                     >
                       Delete
-                    </button> */}
+                    </button>
                   </td>
                 </tr>
               ))
