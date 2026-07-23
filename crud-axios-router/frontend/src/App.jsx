@@ -1,75 +1,39 @@
-import { Routes, Route, Outlet, Link, BrowserRouter} from "react-router";
-import CrudAxios from './pages/CrudAxios.jsx';
-import Home from './pages/Home.jsx';
-
-export default function App() {
-  return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="crud-axios" element={<CrudAxios />} />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
-}
-
-function Layout() {
-  return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/crud-axios">CRUD AXIOS</Link>
-          </li>
-        </ul>
-      </nav>
-
-      <hr />
-
-      <Outlet />
-    </div>
-  );
-}
+import { Routes, Route, BrowserRouter } from "react-router";
+import MainLayout from "./layout/MainLayout.jsx";
+import CrudAxios from "./pages/CrudAxios.jsx";
+import Home from "./pages/Home.jsx";
+import NoMatch from "./pages/NoMatch.jsx";
 
 function About() {
   return (
-    <div>
+    <div className="page-container">
       <h2>About</h2>
+      <p>Aplikasi CRUD sederhana menggunakan React, Axios, dan React Router.</p>
     </div>
   );
 }
 
 function Dashboard() {
   return (
-    <div>
+    <div className="page-container">
       <h2>Dashboard</h2>
+      <p>Halaman dashboard untuk melihat ringkasan data.</p>
     </div>
   );
 }
 
-function NoMatch() {
+export default function App() {
   return (
-    <div>
-      <h2>Nothing to see here!</h2>
-      <p>
-        <Link to="/">Go to the home page</Link>
-      </p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="crud-axios" element={<CrudAxios />} />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

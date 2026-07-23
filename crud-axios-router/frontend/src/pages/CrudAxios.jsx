@@ -74,9 +74,9 @@ const CrudAxios = () => {
   };
 
   return (
-    <>
+    <div className="crud-container">
       <h1>CRUD AXIOS</h1>
-      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
+      {error && <p className="crud-error">{error}</p>}
       <div className="div-input">
         <form onSubmit={handleSubmit}>
           <label htmlFor="movietitle">Input Movie</label>
@@ -159,7 +159,7 @@ const CrudAxios = () => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
 

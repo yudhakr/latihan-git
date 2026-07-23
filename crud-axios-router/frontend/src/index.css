@@ -1,9 +1,12 @@
 :root {
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #333;
-  background-color: #fff;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 8px;
 }
 
 * {
@@ -13,18 +16,110 @@
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
 }
 
 #root {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 20px;
+  min-height: 100vh;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 24px;
-  color: #047baa;
+/* Layout */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 60px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+}
+
+.nav-links li a {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: var(--text-muted);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-links li a:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.nav-links li a.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* Page Container */
+.page-container {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 32px;
+  border: 1px solid var(--border);
+}
+
+.page-container h2 {
+  margin-bottom: 12px;
+}
+
+.page-container p {
+  color: var(--text-muted);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
 }
