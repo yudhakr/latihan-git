@@ -77,7 +77,7 @@ body {
 
 .nav-links li a.active {
   background: var(--primary);
-  color: #fff;
+  color: #f10808;
 }
 
 /* Main Content */

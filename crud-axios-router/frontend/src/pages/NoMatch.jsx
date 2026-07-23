@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 function NoMatch() {
   return (
-    <div>
+    <div className="page-container" style={{ textAlign: "center" }}>
       <h2>Nothing to see here!</h2>
       <p>
         <Link to="/">Go to the home page</Link>

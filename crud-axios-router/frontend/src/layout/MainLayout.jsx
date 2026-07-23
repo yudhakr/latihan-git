@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 
 function MainLayout() {
   return (
@@ -6,10 +6,10 @@ function MainLayout() {
       <nav className="navbar">
         <div className="nav-brand">CrudApp</div>
         <ul className="nav-links">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/dashboard">Dashboard</Link></li>
-          <li><Link to="/crud-axios">CRUD AXIOS</Link></li>
+          <li><NavLink to="/" end>Home</NavLink></li>
+          <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+          <li><NavLink to="/crud-axios">CRUD AXIOS</NavLink></li>
+          <li><NavLink to="/Category">Category</NavLink></li>
         </ul>
       </nav>
       <main className="main-content">

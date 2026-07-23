@@ -4,14 +4,14 @@ import CrudAxios from "./pages/CrudAxios.jsx";
 import Home from "./pages/Home.jsx";
 import NoMatch from "./pages/NoMatch.jsx";
 
-function About() {
-  return (
-    <div className="page-container">
-      <h2>About</h2>
-      <p>Aplikasi CRUD sederhana menggunakan React, Axios, dan React Router.</p>
-    </div>
-  );
-}
+// function About() {
+//   return (
+//     <div className="page-container">
+//       <h2>About</h2>
+//       <p>Aplikasi CRUD sederhana menggunakan React, Axios, dan React Router.</p>
+//     </div>
+//   );
+// }
 
 function Dashboard() {
   return (
@@ -28,7 +28,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
+          {/* <Route path="about" element={<About />} /> */}
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="crud-axios" element={<CrudAxios />} />
           <Route path="*" element={<NoMatch />} />
