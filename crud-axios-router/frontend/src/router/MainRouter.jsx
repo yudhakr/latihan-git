@@ -1,6 +1,8 @@
 import { BrowserRouter,Route,Routes } from "react-router";
 import Home from "../pages/Home";
-import  Category form "../pages/"
+import  Category form "../pages/category/FormCategory.jsx"
+import  Category form "../pages/category/TableCategory.jsx"
+
 
 const MainRouter = () => {
     return (
