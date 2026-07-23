@@ -1,12 +1,19 @@
-const express = require("express")
-const categoryRouter = express.Router()
+const express = require("express");
+const categoryRouter = express.Router();
 
-const { readCategory, readCategoryid, createCategory, updateCategory, deleteCategory } = require("../controllers/categoryController.js")
+const {
+  readCategory,
+  readCategoryid,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} = require("../controllers/CategoryController.js");
+const { authJWT } = require("../middleware/auth.js");
 
-categoryRouter.get('/category', readCategory);
-categoryRouter.get('/category/:id', readCategoryid);
-categoryRouter.post('/category', createCategory);
-categoryRouter.put('/category/:id', updateCategory);
-categoryRouter.delete('/category/:id', deleteCategory);
+categoryRouter.get("/Category", readCategory);                                                                                                                                                                                                                                                                                                                                                                                                                                        
+categoryRouter.get("/Category/:id", readCategoryid);
+categoryRouter.post("/Category", createCategory);
+categoryRouter.put("/Category/:id", updateCategory);
+categoryRouter.delete("/Category/:id", deleteCategory);
 
-module.exports = categoryRouter
+module.exports = categoryRouter;

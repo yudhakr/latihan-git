@@ -1,32 +1,14 @@
-import { Routes, Route, Outlet, Link, BrowserRouter} from "react-router";
-import CrudAxios from './pages/CrudAxios.jsx';
-import Home from './pages/Home.jsx';
+import { Link } from "react-router";
+import { Outlet } from "react-router";
 
-export default function App() {
+function MainLayout() {
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="crud-axios" element={<CrudAxios />} />
-            <Route path="*" element={<NoMatch />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
-}
-
-function Layout() {
-  return (
-    <div>
+    
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <link to="/">Home</Link>
           </li>
           <li>
             <Link to="/about">About</Link>
@@ -41,8 +23,15 @@ function Layout() {
       </nav>
 
       <hr />
-
       <Outlet />
+    </div>
+  );
+}
+
+function Home() {
+  return (
+    <div>
+      <h2>Home</h2>
     </div>
   );
 }
@@ -73,3 +62,5 @@ function NoMatch() {
     </div>
   );
 }
+
+export default MainLayout;

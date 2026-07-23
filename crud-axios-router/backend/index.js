@@ -4,7 +4,6 @@ const app = express();
 const port = 3000;
 const movieRouter  = require('./src/routes/movieRouter');
 const userRouter  = require('./src/routes/userRouter');
-const categoryRouter = require('./src/routes/categoryRouter');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger-output.json')

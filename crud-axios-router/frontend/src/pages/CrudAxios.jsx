@@ -8,33 +8,45 @@ const CrudAxios = () => {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [editId, setEditId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const fetchFilms = () => {
-    axios.get(API_URL).then((res) => {
+  const fetchFilms = async () => {
+    try {
+      setLoading(true);
+      setError("");
+      const res = await axios.get(API_URL);
       setFilms(res.data);
-    });
+    } catch (err) {
+      setError("Gagal memuat data film");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchFilms();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title.trim() || !year) return;
 
     const payload = { title, year: Number(year) };
 
-    if (editId) {
-      axios.put(`${API_URL}/${editId}`, payload).then(() => {
-        resetForm();
-        fetchFilms();
-      });
-    } else {
-      axios.post(API_URL, payload).then(() => {
-        resetForm();
-        fetchFilms();
-      });
+    try {
+      if (editId) {
+        await axios.put(`${API_URL}/${editId}`, payload);
+      } else {
+        await axios.post(API_URL, payload);
+      }
+      resetForm();
+      fetchFilms();
+    } catch (err) {
+      console.error(err);
+      alert("Gagal menyimpan data");
     }
   };
 
@@ -44,11 +56,15 @@ const CrudAxios = () => {
     setEditId(film.id_tb_movie);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (!confirm("Yakin ingin menghapus data ini?")) return;
-    axios.delete(`${API_URL}/${id}`).then(() => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
       fetchFilms();
-    });
+    } catch (err) {
+      console.error(err);
+      alert("Gagal menghapus data");
+    }
   };
 
   const resetForm = () => {
@@ -60,6 +76,7 @@ const CrudAxios = () => {
   return (
     <>
       <h1>CRUD AXIOS</h1>
+      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
       <div className="div-input">
         <form onSubmit={handleSubmit}>
           <label htmlFor="movietitle">Input Movie</label>
@@ -108,7 +125,11 @@ const CrudAxios = () => {
             </tr>
           </thead>
           <tbody>
-            {films.length > 0 ? (
+            {loading ? (
+              <tr>
+                <td colSpan={4}>Loading...</td>
+              </tr>
+            ) : films.length > 0 ? (
               films.map((item) => (
                 <tr key={item.id_tb_movie}>
                   <td>{item.id_tb_movie}</td>
