@@ -1,75 +1,68 @@
 const connectionPool = require("../config/db.js");
 
-const readmovie = (req, res) => {
-  let query = "SELECT * FROM tb_movie";
-
-  connectionPool.query(query, (err, result) => {
-    if(err) {
-      console.log(err)
-      return res.status(500).json({ message: "Database error", error: err })
-    }
-    res.json(result)
-  })
+const readmovie = async (req, res) => {
+  try {
+    const [result] = await connectionPool.query("SELECT * FROM tb_movie");
+    res.json(result);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Database error", error: err.message });
+  }
 }
 
-const readmovieid = (req, res) => {
-  let {id}  = req.params;
-  let querytext = `SELECT * FROM tb_movie WHERE id_tb_movie = ?`
-
-  connectionPool.query(querytext, [id], (err, result) => {
-    if(err) {
-      console.log(err)
-      return res.status(500).json({ message: "Database error", error: err })
-    }
+const readmovieid = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [result] = await connectionPool.query("SELECT * FROM tb_movie WHERE id_tb_movie = ?", [id]);
     if (result.length === 0) {
-      return res.status(404).json({ message: "Film tidak ditemukan" })
+      return res.status(404).json({ message: "Film tidak ditemukan" });
     }
-    res.json(result[0])
-})
+    res.json(result[0]);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Database error", error: err.message });
+  }
 }
 
-const createmovie = (req, res) => {
-  let { title, year } = req.body;
-  let querytext = `INSERT INTO tb_movie (title_tb_movie, year_tb_movie) VALUES (?, ?)`
-
-  connectionPool.query(querytext, [title, year], (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({ message: "Database error", error: err });
-    }
+const createmovie = async (req, res) => {
+  const { title, year } = req.body;
+  if (!title || !year) {
+    return res.status(400).json({ message: "Title dan year wajib diisi" });
+  }
+  try {
+    await connectionPool.query("INSERT INTO tb_movie (title_tb_movie, year_tb_movie) VALUES (?, ?)", [title, year]);
     res.json({ message: "Data berhasil ditambahkan" });
-  });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Database error", error: err.message });
+  }
 };
-  
-const updatemovie = (req,res) => {
-  let {title,year} = req.body
-  let {id} = req.params
-  let querytext = `UPDATE tb_movie SET title_tb_movie = ?, year_tb_movie = ? WHERE id_tb_movie = ?`
 
-  connectionPool.query(querytext, [title, year, id], (err,data) =>{
-    if(err){
-      console.log(err)
-      return res.status(500).json({ message: "Database error", error: err })
-    }
-    res.json({message: "Data berhasil diupdate"})
-  
-  })
+const updatemovie = async (req, res) => {
+  const { title, year } = req.body;
+  const { id } = req.params;
+  if (!title || !year) {
+    return res.status(400).json({ message: "Title dan year wajib diisi" });
+  }
+  try {
+    await connectionPool.query("UPDATE tb_movie SET title_tb_movie = ?, year_tb_movie = ? WHERE id_tb_movie = ?", [title, year, id]);
+    res.json({ message: "Data berhasil diupdate" });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Database error", error: err.message });
+  }
 }
 
-const deletemovie = (req,res) => {
-  let {id} = req.params
-  let querytext = `DELETE FROM tb_movie WHERE id_tb_movie = ?`
-
-  connectionPool.query(querytext, [id], (err,data) =>{
-    if(err){
-      console.log(err)
-      return res.status(500).json({ message: "Database error", error: err })
-    }
-    res.json({message: "Data berhasil dihapus"})
-  
-  })
+const deletemovie = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await connectionPool.query("DELETE FROM tb_movie WHERE id_tb_movie = ?", [id]);
+    res.json({ message: "Data berhasil dihapus" });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Database error", error: err.message });
+  }
 }
-
 
 module.exports = {
   readmovie,

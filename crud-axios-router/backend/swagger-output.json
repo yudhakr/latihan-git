@@ -209,7 +209,7 @@
         }
       }
     },
-    "/api/category": {
+    "/api/Category": {
       "get": {
         "description": "",
         "responses": {
@@ -250,7 +250,7 @@
         }
       }
     },
-    "/api/category/{id}": {
+    "/api/Category/{id}": {
       "get": {
         "description": "",
         "parameters": [

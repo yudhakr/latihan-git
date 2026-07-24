@@ -1,17 +1,18 @@
 require('dotenv').config()
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const movieRouter  = require('./src/routes/movieRouter');
 const userRouter  = require('./src/routes/userRouter');
+const categoryRouter = require('./src/routes/categoryRouter');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger-output.json')
 
 
 var corsOptions = {
-  origin: "http://localhost:5173", // Ganti dengan domain yang diizinkan
-  optionsSuccessStatus: 200 // Untuk beberapa browser lama
+  origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : "*",
+  optionsSuccessStatus: 200
 };
 
 

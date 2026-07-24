@@ -2,24 +2,24 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import baseUrl from "../config/utils.js";
 
-const API_URL = `${baseUrl}/api/film`;
+const API_URL = `${baseUrl}/api/Category`;
 
-const CrudAxios = () => {
-  const [films, setFilms] = useState([]);
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
+const CategoryPage = () => {
+  const [categories, setCategories] = useState([]);
+  const [nama, setNama] = useState("");
+  const [des, setDes] = useState("");
   const [editId, setEditId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const fetchFilms = async () => {
+  const fetchCategories = async () => {
     try {
       setLoading(true);
       setError("");
       const res = await axios.get(API_URL);
-      setFilms(res.data);
+      setCategories(res.data);
     } catch (err) {
-      setError("Gagal memuat data film");
+      setError("Gagal memuat data kategori");
       console.error(err);
     } finally {
       setLoading(false);
@@ -27,15 +27,14 @@ const CrudAxios = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchFilms();
+    fetchCategories();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title.trim() || !year) return;
+    if (!nama.trim() || !des.trim()) return;
 
-    const payload = { title, year: Number(year) };
+    const payload = { names: nama, des };
 
     try {
       if (editId) {
@@ -44,24 +43,24 @@ const CrudAxios = () => {
         await axios.post(API_URL, payload);
       }
       resetForm();
-      fetchFilms();
+      fetchCategories();
     } catch (err) {
       console.error(err);
       alert("Gagal menyimpan data");
     }
   };
 
-  const handleEdit = (film) => {
-    setTitle(film.title_tb_movie);
-    setYear(film.year_tb_movie);
-    setEditId(film.id_tb_movie);
+  const handleEdit = (cat) => {
+    setNama(cat.nama_tb_katagori);
+    setDes(cat.des_tb_katagori);
+    setEditId(cat.id_tb_katagori);
   };
 
   const handleDelete = async (id) => {
     if (!confirm("Yakin ingin menghapus data ini?")) return;
     try {
       await axios.delete(`${API_URL}/${id}`);
-      fetchFilms();
+      fetchCategories();
     } catch (err) {
       console.error(err);
       alert("Gagal menghapus data");
@@ -69,34 +68,34 @@ const CrudAxios = () => {
   };
 
   const resetForm = () => {
-    setTitle("");
-    setYear("");
+    setNama("");
+    setDes("");
     setEditId(null);
   };
 
   return (
     <div className="crud-container">
-      <h1>INPUT MOVIE</h1>
+      <h1>Category</h1>
       {error && <p className="crud-error">{error}</p>}
       <div className="div-input">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="movietitle">Input Movie</label>
+          <label htmlFor="categoryname">Nama Kategori</label>
           <input
             type="text"
-            id="movietitle"
-            placeholder="Your Movie title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            id="categoryname"
+            placeholder="Nama kategori"
+            value={nama}
+            onChange={(e) => setNama(e.target.value)}
             required
           />
 
-          <label htmlFor="movieyear">Input Tahun</label>
+          <label htmlFor="categorydesc">Deskripsi</label>
           <input
-            type="number"
-            id="movieyear"
-            placeholder="Your Movie year"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
+            type="text"
+            id="categorydesc"
+            placeholder="Deskripsi kategori"
+            value={des}
+            onChange={(e) => setDes(e.target.value)}
             required
           />
 
@@ -120,8 +119,8 @@ const CrudAxios = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Title</th>
-              <th>Year</th>
+              <th>Nama</th>
+              <th>Deskripsi</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -130,12 +129,12 @@ const CrudAxios = () => {
               <tr>
                 <td colSpan={4}>Loading...</td>
               </tr>
-            ) : films.length > 0 ? (
-              films.map((item) => (
-                <tr key={item.id_tb_movie}>
-                  <td>{item.id_tb_movie}</td>
-                  <td>{item.title_tb_movie}</td>
-                  <td>{item.year_tb_movie}</td>
+            ) : categories.length > 0 ? (
+              categories.map((item) => (
+                <tr key={item.id_tb_katagori}>
+                  <td>{item.id_tb_katagori}</td>
+                  <td>{item.nama_tb_katagori}</td>
+                  <td>{item.des_tb_katagori}</td>
                   <td>
                     <button
                       className="btn-edit"
@@ -145,7 +144,7 @@ const CrudAxios = () => {
                     </button>
                     <button
                       className="btn-delete"
-                      onClick={() => handleDelete(item.id_tb_movie)}
+                      onClick={() => handleDelete(item.id_tb_katagori)}
                     >
                       Delete
                     </button>
@@ -164,4 +163,4 @@ const CrudAxios = () => {
   );
 };
 
-export default CrudAxios;
+export default CategoryPage;
