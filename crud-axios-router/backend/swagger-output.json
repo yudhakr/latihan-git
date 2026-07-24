@@ -237,10 +237,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "names": {
+                  "nama_katagori": {
                     "example": "any"
                   },
-                  "des": {
+                  "deskripsi": {
                     "example": "any"
                   }
                 }
@@ -301,10 +301,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "names": {
+                  "Nama_katagori": {
                     "example": "any"
                   },
-                  "des": {
+                  "deskripsi": {
                     "example": "any"
                   }
                 }

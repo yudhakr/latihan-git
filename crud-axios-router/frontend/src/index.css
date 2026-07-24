@@ -37,47 +37,81 @@ body {
 .navbar {
   display: flex;
   align-items: center;
-  background-color: #333333;
+  background-color: #1e293b;
   position: sticky;
   top: 0;
   z-index: 100;
+  padding: 0 24px;
 }
 
 .nav-brand {
   font-size: 1.25rem;
   font-weight: 700;
   color: white;
-  padding: 14px 16px;
+  padding: 14px 0;
+  margin-right: 32px;
 }
 
 .nav-links {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  background-color: #333333;
   display: flex;
-}
-
-.nav-links li {
-  float: left;
 }
 
 .nav-links li a {
   display: block;
-  color: white;
+  color: #94a3b8;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  transition: background-color 0.2s;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.2s, background-color 0.2s;
+  border-radius: var(--radius);
 }
 
 .nav-links li a:hover {
-  background-color: #111111;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .nav-links li a.active {
-  background-color: #111111;
+  color: white;
+  background-color: var(--primary);
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: auto;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: white;
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* Main Content */
@@ -108,22 +142,28 @@ body {
 /* Responsive */
 @media (max-width: 640px) {
   .navbar {
-    flex-direction: column;
-    height: auto;
+    flex-wrap: wrap;
+    padding: 0 16px;
   }
 
-  .nav-brand {
-    padding: 14px 16px;
+  .hamburger {
+    display: flex;
   }
 
   .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
+    display: none;
     width: 100%;
+    flex-direction: column;
+    padding-bottom: 8px;
   }
 
-  .nav-links li {
-    float: none;
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links li a {
+    padding: 10px 16px;
+    text-align: left;
   }
 
   .main-content {

@@ -11,6 +11,12 @@ const CategoryPage = () => {
   const [editId, setEditId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const showSuccess = (msg) => {
+    setSuccess(msg);
+    setTimeout(() => setSuccess(""), 3000);
+  };
 
   const fetchCategories = async () => {
     try {
@@ -39,8 +45,10 @@ const CategoryPage = () => {
     try {
       if (editId) {
         await axios.put(`${API_URL}/${editId}`, payload);
+        showSuccess("Data berhasil diupdate");
       } else {
         await axios.post(API_URL, payload);
+        showSuccess("Data berhasil ditambahkan");
       }
       resetForm();
       fetchCategories();
@@ -60,6 +68,7 @@ const CategoryPage = () => {
     if (!confirm("Yakin ingin menghapus data ini?")) return;
     try {
       await axios.delete(`${API_URL}/${id}`);
+      showSuccess("Data berhasil dihapus");
       fetchCategories();
     } catch (err) {
       console.error(err);
@@ -75,8 +84,9 @@ const CategoryPage = () => {
 
   return (
     <div className="crud-container">
-      <h1>Category</h1>
+      <h1>CATEGORY</h1>
       {error && <p className="crud-error">{error}</p>}
+      {success && <p className="crud-success">{success}</p>}
       <div className="div-input">
         <form onSubmit={handleSubmit}>
           <label htmlFor="categoryname">Nama Kategori</label>
@@ -90,10 +100,9 @@ const CategoryPage = () => {
           />
 
           <label htmlFor="categorydesc">Deskripsi</label>
-          <input
-            type="text"
+          <textarea
             id="categorydesc"
-            placeholder="Deskripsi kategori"
+            placeholder="Masukkan deskripsi kategori"
             value={des}
             onChange={(e) => setDes(e.target.value)}
             required
@@ -119,7 +128,7 @@ const CategoryPage = () => {
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama</th>
+              <th>Nama Katagori</th>
               <th>Deskripsi</th>
               <th>Action</th>
             </tr>

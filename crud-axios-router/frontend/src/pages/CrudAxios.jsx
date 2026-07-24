@@ -11,6 +11,12 @@ const CrudAxios = () => {
   const [editId, setEditId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const showSuccess = (msg) => {
+    setSuccess(msg);
+    setTimeout(() => setSuccess(""), 3000);
+  };
 
   const fetchFilms = async () => {
     try {
@@ -27,7 +33,6 @@ const CrudAxios = () => {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchFilms();
   }, []);
 
@@ -40,8 +45,10 @@ const CrudAxios = () => {
     try {
       if (editId) {
         await axios.put(`${API_URL}/${editId}`, payload);
+        showSuccess("Data berhasil diupdate");
       } else {
         await axios.post(API_URL, payload);
+        showSuccess("Data berhasil ditambahkan");
       }
       resetForm();
       fetchFilms();
@@ -61,6 +68,7 @@ const CrudAxios = () => {
     if (!confirm("Yakin ingin menghapus data ini?")) return;
     try {
       await axios.delete(`${API_URL}/${id}`);
+      showSuccess("Data berhasil dihapus");
       fetchFilms();
     } catch (err) {
       console.error(err);
@@ -78,6 +86,7 @@ const CrudAxios = () => {
     <div className="crud-container">
       <h1>INPUT MOVIE</h1>
       {error && <p className="crud-error">{error}</p>}
+      {success && <p className="crud-success">{success}</p>}
       <div className="div-input">
         <form onSubmit={handleSubmit}>
           <label htmlFor="movietitle">Input Movie</label>
